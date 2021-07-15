@@ -34,17 +34,21 @@ async function nameFetch() {
   var resp = await data.json();
   console.log(resp.country);
 
-  //var div = document.createElement("div");
-  //document.body.appendChild(div);
-
-
+  var div = document.createElement("div");
+  div.id = "op";
+  document.body.appendChild(div);
+  
+  document.getElementById("op").innerHTML=""
   // til here code is running
   //div.className = "output"
   //div.innerText = resp.country;
   for (let i = 0; i < 2; i++) {
-    let div = document.createElement("div");
-    document.body.appendChild(div);
-    div.innerText = resp.country[i].country_id + resp.country[i].probability;
+
+    
+      
+    let p = document.createElement("p");
+    p.innerText = resp.country[i].country_id + resp.country[i].probability;
+    document.getElementById("op").appendChild(p);
   }
 
   // alert(name);
