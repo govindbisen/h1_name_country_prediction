@@ -28,28 +28,30 @@ button.innerHTML = "submit";
 document.body.appendChild(button);
 
 async function nameFetch() {
-  var name = document.getElementById("myText").value;
-  console.log(name);
-  let data = await fetch("https://api.nationalize.io/?name=" + name);
-  var resp = await data.json();
-  console.log(resp.country);
-
-  var div = document.createElement("div");
-  div.id = "op";
-  document.body.appendChild(div);
+ try {
+    var name = document.getElementById("myText").value;
+    console.log(name);
+    let data = await fetch("https://api.nationalize.io/?name=" + name);
+    var resp = await data.json();
+    console.log(resp.country);
   
-  document.getElementById("op").innerHTML=""
-  // til here code is running
-  //div.className = "output"
-  //div.innerText = resp.country;
-  for (let i = 0; i < 2; i++) {
-
+    var div = document.createElement("div");
+    div.id = "op";
+    document.body.appendChild(div);
     
-      
-    let p = document.createElement("p");
-    p.innerText = resp.country[i].country_id + resp.country[i].probability;
-    document.getElementById("op").appendChild(p);
-  }
+    document.getElementById("op").innerHTML=""
+    // til here code is running
+    //div.className = "output"
+    //div.innerText = resp.country;
+    for (let i = 0; i < 2; i++) {
+      let p = document.createElement("p");
+      p.innerText = resp.country[i].country_id + resp.country[i].probability;
+      document.getElementById("op").appendChild(p);
+    }
+     
+ } catch (error) {
+     console.log(error);
+ }
 
   // alert(name);
 }
