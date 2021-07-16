@@ -48,9 +48,9 @@ async function nameFetch() {
       // til here code is running
       //div.className = "output"
       //div.innerText = resp.country;
-      for (let i = 1; i < 3; i++) {
+      for (let i = 0; i < 2; i++) {
         let p = document.createElement("p");
-        p.innerText = i+ " Country you may belong to is:  "+resp.country[i].country_id + "with probability :"+resp.country[i].probability;
+        p.innerText = (i+1)+ " Country you may belong to is:  "+resp.country[i].country_id + "with probability :"+resp.country[i].probability;
         document.getElementById("op").appendChild(p);
       }
        
