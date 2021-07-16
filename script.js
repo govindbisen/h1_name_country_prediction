@@ -13,7 +13,7 @@
 // creating label and textbox to take name as input
 var label = document.createElement("LABEL");
 label.setAttribute("for", textBox);
-label.innerHTML = "Write the name ";
+label.innerHTML = "<i>Write your name to find in which country your name is common</i> <br>";
 document.body.appendChild(label);
 var textBox = document.createElement("INPUT");
 textBox.setAttribute("type", "text");
@@ -33,24 +33,32 @@ async function nameFetch() {
     console.log(name);
     let data = await fetch("https://api.nationalize.io/?name=" + name);
     var resp = await data.json();
-    console.log(resp.country);
-  
-    var div = document.createElement("div");
-    div.id = "op";
-    document.body.appendChild(div);
-    
-    document.getElementById("op").innerHTML=""
-    // til here code is running
-    //div.className = "output"
-    //div.innerText = resp.country;
-    for (let i = 0; i < 2; i++) {
-      let p = document.createElement("p");
-      p.innerText = resp.country[i].country_id + resp.country[i].probability;
-      document.getElementById("op").appendChild(p);
+
+    if(resp.country==""||null){
+      alert("Sorry! Data not found")
     }
-     
+    else{
+      console.log(resp.country);
+  
+      var div = document.createElement("div");
+      div.id = "op";
+      document.body.appendChild(div);
+      
+      document.getElementById("op").innerHTML=""
+      // til here code is running
+      //div.className = "output"
+      //div.innerText = resp.country;
+      for (let i = 0; i < 2; i++) {
+        let p = document.createElement("p");
+        p.innerText = "Country you may belong to is:  "+resp.country[i].country_id + "with probability :"+resp.country[i].probability;
+        document.getElementById("op").appendChild(p);
+      }
+       
+    }
+    
  } catch (error) {
      console.log(error);
+   
  }
 
   // alert(name);
