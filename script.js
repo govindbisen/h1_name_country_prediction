@@ -57,8 +57,8 @@ async function nameFetch() {
     }
     
  } catch (error) {
-     //console.log(error);
-     alert(error+"this name is inappropriate!! try other name.")
+     console.log(error);
+     //alert(error+"this name is inappropriate!! try other name.")
  }
 
   // alert(name);
