@@ -1,65 +1,33 @@
-//-----------------------------DATA API--------------------------------------
-// https://api.nationalize.io/?name=michael
+const pokemon_container = document.getElementById("pokemon_container");
+const pokemon_number = 150;
 
-// {"name":"michael","country":
-// [{"country_id":"US","probability":0.08986482266532715},
-// {"country_id":"AU","probability":0.05976757527083082},
-// {"country_id":"NZ","probability":0.04666974820852911}]}
+async function getData(){
+   try {
+    var data = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+    res = await data.json();
+    for(let i=0;i<pokemon_number;i++)
+    {   var div = document.createElement("div");
+        div.innerText=res.results[i].name;
+        div.style.fontSize = "40px";
+        div.style.color = "white";
+        div.style.textAlign = "center";
 
-// ------------------------------------------------------------------
-
-// i will make only one function prediction based on highest probability
-
-// creating label and textbox to take name as input
-var label = document.createElement("LABEL");
-label.setAttribute("for", textBox);
-label.innerHTML = "<i>Write your name to find in which country your name is common</i> <br>";
-document.body.appendChild(label);
-var textBox = document.createElement("INPUT");
-textBox.setAttribute("type", "text");
-textBox.setAttribute("id", "myText");
-document.body.appendChild(textBox);
-
-// creating a submit button that will call the function to fetch and match the data.
-
-var button = document.createElement("button");
-button.setAttribute("onclick", "nameFetch()");
-button.innerHTML = "submit";
-document.body.appendChild(button);
-
-async function nameFetch() {
- try {
-    var name = document.getElementById("myText").value;
-    console.log(name);
-    let data = await fetch("https://api.nationalize.io/?name=" + name);
-    var resp = await data.json();
-
-    if(resp.country==""||null){
-      alert("Sorry! Data not found")
-    }
-    else{
-      console.log(resp.country);
-  
-      var div = document.createElement("div");
-      div.id = "op";
-      document.body.appendChild(div);
-      
-      document.getElementById("op").innerHTML=""
-      // til here code is running
-      //div.className = "output"
-      //div.innerText = resp.country;
-      for (let i = 0; i < 2; i++) {
-        let p = document.createElement("p");
-        p.innerText = (i+1)+ " Country you may belong to is:  "+resp.country[i].country_id + "with probability :"+resp.country[i].probability;
-        document.getElementById("op").appendChild(p);
-      }
+        pokemon_container.appendChild(div);
+        
+        let pokemon_image = document.createElement('img');
+        pokemon_image.setAttribute("width",200)
+        pokemon_image.src="https://pokeres.bastionbot.org/images/pokemon/"+(i+1)+".png";
+        div.appendChild(pokemon_image);
        
     }
     
- } catch (error) {
-     console.log(error);
-     //alert(error+"this name is inappropriate!! try other name.")
- }
+    
+   } catch (error) {
+       console.log(error);
+   }
 
-  // alert(name);
+
+
 }
+
+getData();
